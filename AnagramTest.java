@@ -1,35 +1,45 @@
 package com.ambrin.pdc.string;
 
-//Find the minimum characters to be removed in two given strings to make them anagrams of each other//
+import java.util.Arrays;
 
-public class AnagramTest {
-
+public class Anagram {
     public static void main(String[] args) {
-        String firstInput = "fcrxzwscanmligcvxsym";
-        String secondInput = "jxwtrhvujlmrpdoqbisbwgdseratke";
-        System.out.println("The minimum deletions required are:" + createAnagram(firstInput, secondInput));
+        String firstInput = "apple";
+        String secondInput = "banana";
+        System.out.println(anagramChecker(firstInput, secondInput));
     }
 
-    public static int createAnagram(String firstString,String secondString) {
-
-        int[] characterIndex = new int[26];
-
-        //check first string and for any character (A to Z) found in the string increment the corresponding index//
-        for (char c : firstString.toCharArray()) {
-            characterIndex[c - 'a']++;
+    public static boolean anagramChecker(String firstInput, String secondInput) {
+        if (firstInput == null) {
+            return secondInput == null;
         }
 
-        //check second string and for any character (A to Z) found in the string decrement the corresponding index//
-        for (char c : secondString.toCharArray()) {
-            characterIndex[c - 'a']--;
+        if (secondInput == null) {
+            return false;
         }
 
-        //Add the index values to get the result//
-        int result = 0;
-        for (int i : characterIndex) {
-            result += Math.abs(i);
-
+        if (firstInput.isEmpty()) {
+            return secondInput.isEmpty();
         }
-        return result;
+
+        if(secondInput.isEmpty()) {
+            return false;
+        }
+
+        if ((firstInput.length()) != (secondInput.length())) {
+            return false;
+        }
+
+        char[] firstInputChars = firstInput.toCharArray();
+        Arrays.sort(firstInputChars);
+        String sortedFirstInput = new String(firstInputChars);
+
+        char[] SecondInputChars = secondInput.toCharArray();
+        Arrays.sort(SecondInputChars);
+        String sortedSecondInput = new String(SecondInputChars);
+
+        return sortedFirstInput.equals(sortedSecondInput);
     }
+
+
 }
